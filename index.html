@@ -1,0 +1,64 @@
+<!doctype html!>
+<html>
+<head>
+	<link rel="stylesheet" href="tennis.css"></link>
+</head>
+<body>
+		<form id="controls">
+			<label>
+				Points to win a game
+				<input id="points_to_win" type="number" min="1" value="4"/>
+			</label>
+			<label>
+				Games to win a set
+				<input id="games_to_win" type="number" min="1" value="6"/>
+			</label>
+			<label>
+				Sets to win the match 
+				<input id="sets_to_win" type="number" min="1" value="3"/>
+			</label>
+			<label>
+				Points to win tiebreak
+				<input id="tiebreak_points_to_win" type="number" min="1" value="7"/>
+			</label>
+			<label>
+				Tiebreak in the last set?
+				<input id="last_set_tiebreak" type="checkbox"/>
+			</label>
+			<label>
+				Zoom
+				<input id="zoom" type="number" min="0.1" max="2" step="0.1" value="1"/>
+			</label>
+		</form>
+
+		<table id="scoreboard">
+			<thead>
+				<tr>
+					<th>Player</th>
+					<th>Sets</th>
+					<th>Games</th>
+					<th>Points</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="text" value="Player A"/></td>
+					<td class="score">0</td>
+					<td class="score">0</td>
+					<td class="score">0</td>
+				</tr>
+				<tr>
+					<td><input type="text" value="Player B"/></td>
+					<td class="score">0</td>
+					<td class="score">0</td>
+					<td class="score">0</td>
+				</tr>
+			</tbody>
+		</table>
+
+	<svg id="svg" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	</svg>
+<canvas id="tennis"></canvas>
+<script src="tennis.js"></script>
+</body>
+</html>
