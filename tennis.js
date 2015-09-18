@@ -116,19 +116,23 @@ function show_score(state) {
 	}
 }
 
+function resize_svg() {
+	var px = 2*(point_width+set_width*sets_to_win);
+	var py = 2*point_width+set_height*(sets_to_win*2-0.5);
+	var ratio = 1;
+	svg.setAttribute('width',zoom*px);
+	svg.setAttribute('height',zoom*py*ratio);
+	svg.setAttribute('viewBox',[-px/2,-point_height,px,py].join(' '));
+	window.scrollTo((svg.clientWidth-window.innerWidth)/2,0);
+}
+
 function draw_tennis() {
 	//var canvas = document.getElementById('tennis');
 	var width = 1600;
 
-	var px = 2*(point_width+set_width*sets_to_win);
-	var py = 2*point_width+set_height*(sets_to_win*2-0.5);
-	var ratio = 1;
-
 	var svg = document.getElementById('svg');
 	svg.innerHTML = '';
-	svg.setAttribute('width',zoom*px);
-	svg.setAttribute('height',zoom*py*ratio);
-	svg.setAttribute('viewBox',[-px/2,-point_height,px,py].join(' '));
+	resize_svg();
 	var xmlns = "http://www.w3.org/2000/svg";
 
 	function makeElement(name,attr,content) {
@@ -203,7 +207,6 @@ function draw_tennis() {
 		lines.appendChild(lb);
 	});
 
-	window.scrollTo((svg.clientWidth-window.innerWidth)/2,0);
 }
 
 function show_scoreboard(state) {
@@ -224,11 +227,11 @@ function hide_scoreboard() {
 	table.classList.remove('show');
 }
 
+function get_value(id) {
+	console.log(id);
+	return parseFloat(document.getElementById(id).value);
+}
 function update() {
-	function get_value(id) {
-		console.log(id);
-		return parseFloat(document.getElementById(id).value);
-	}
 
 	points_to_win = get_value('points_to_win');
 	games_to_win = get_value('games_to_win');
@@ -252,8 +255,10 @@ var controls = document.querySelectorAll('#controls input');
 for(var i=0;i<controls.length;i++) {
 	controls[i].onchange = update;
 }
+document.getElementById('zoom').onchange = function() {
+	zoom = get_value('zoom');
+	resize_svg();
+}
 
 update();
-setTimeout(function(){
-scrollTo((document.getElementById('svg').clientWidth-window.innerHeight)/2,0);
-},100);
+setTimeout(resize_svg,100);
