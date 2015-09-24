@@ -4,6 +4,10 @@ var games_to_win;
 var sets_to_win;
 var last_set_tiebreak;
 var zoom;
+var game_width_scale;
+var set_width_scale;
+var game_height_scale;
+var set_height_scale;
 
 var point_width;
 var game_width;
@@ -118,7 +122,7 @@ function show_score(state) {
 
 function resize_svg() {
 	var px = 2*(point_width+set_width*sets_to_win);
-	var py = 2*point_width+set_height*(sets_to_win*2-0.5);
+	var py = 2*point_width+set_height*(sets_to_win*2);
 	var ratio = 1;
 	svg.setAttribute('width',zoom*px);
 	svg.setAttribute('height',zoom*py*ratio);
@@ -241,12 +245,18 @@ function update() {
 
 	zoom = get_value('zoom');
 
+	game_width_scale = get_value('game_width_scale');
+	set_width_scale = get_value('set_width_scale');
+
+	game_height_scale = get_value('game_height_scale');
+	set_height_scale = get_value('set_height_scale');
+
 	point_width = 30;
-	game_width = points_to_win*2*point_width;
-	set_width = games_to_win*2*game_width;
+	game_width = points_to_win*2*point_width*game_width_scale;
+	set_width = games_to_win*2*game_width*set_width_scale;
 	point_height = point_width;
-	game_height = points_to_win*2*point_height*1.1;
-	set_height = (games_to_win*2*game_height + tiebreak_points_to_win*2*point_height)*1.1;
+	game_height = points_to_win*2*point_height*game_height_scale;
+	set_height = (games_to_win*2*game_height + tiebreak_points_to_win*2*point_height)*set_height_scale;
 
 	draw_tennis();
 }

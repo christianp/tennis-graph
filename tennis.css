@@ -84,3 +84,12 @@ line.point {
 	background: none;
 	color: yellow;
 }
+
+@media print {
+	body > * {
+		display: none;
+	}
+	#svg {
+		display: block;
+	}
+}
